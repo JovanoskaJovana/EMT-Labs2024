@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>mk.ukim.finki</groupId>
-    <artifactId>Lab1BookstoreFinal</artifactId>
+    <artifactId>BookStoreProject</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Lab1BookstoreFinal</name>
     <description>Lab1BookstoreFinal</description>
