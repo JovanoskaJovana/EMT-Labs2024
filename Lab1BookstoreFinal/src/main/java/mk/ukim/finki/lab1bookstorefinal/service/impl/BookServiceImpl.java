@@ -3,7 +3,6 @@ package mk.ukim.finki.lab1bookstorefinal.service.impl;
 import mk.ukim.finki.lab1bookstorefinal.model.Author;
 import mk.ukim.finki.lab1bookstorefinal.model.Book;
 import mk.ukim.finki.lab1bookstorefinal.model.dto.BookDto;
-import mk.ukim.finki.lab1bookstorefinal.model.enumerations.BookCategory;
 import mk.ukim.finki.lab1bookstorefinal.model.events.BookChangedEvent;
 import mk.ukim.finki.lab1bookstorefinal.model.events.BookCreatedEvent;
 import mk.ukim.finki.lab1bookstorefinal.model.events.BookDeletedEvent;
@@ -43,31 +42,24 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Optional<Book> save(BookDto bookDto) {
-        Author author = authorRepository.findById(bookDto.getAuthor().getId()).orElseThrow(() -> new AuthorNotFoundException(bookDto.getAuthor().getId()));
+        System.out.println(bookDto);
+        Author author = authorRepository.findById(bookDto.getAuthorId()).orElseThrow(() -> new AuthorNotFoundException(bookDto.getAuthorId()));
         Book book = new Book(bookDto.getName(), bookDto.getBookCategory(), author, bookDto.getAvailableCopies());
         bookRepository.save(book);
         applicationEventPublisher.publishEvent(new BookCreatedEvent(book));
         return Optional.of(book);
     }
 
-    @Override
-    public Book create(String name, BookCategory category, Long authorId, Integer availableCopies) {
-        Author author = authorRepository.findById(authorId).orElseThrow(() -> new AuthorNotFoundException(authorId));
-        Book book = new Book(name, category, author, availableCopies);
-        bookRepository.save(book);
-        applicationEventPublisher.publishEvent(new BookCreatedEvent(book));
-        return book;
-    }
 
     @Override
     public Optional<Book> edit(Long id, BookDto bookDto) {
-        Author author = authorRepository.findById(bookDto.getAuthor().getId()).orElseThrow(() -> new AuthorNotFoundException(bookDto.getAuthor().getId()));
+        Author author = authorRepository.findById(bookDto.getAuthorId()).orElseThrow(() -> new AuthorNotFoundException(bookDto.getAuthorId()));
         Book book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
 
-        book.setName(book.getName());
+        book.setName(bookDto.getName());
         book.setBookCategory(bookDto.getBookCategory());
         book.setAuthor(author);
-        book.setAvailableCopies(book.getAvailableCopies());
+        book.setAvailableCopies(bookDto.getAvailableCopies());
 
         bookRepository.save(book);
         applicationEventPublisher.publishEvent(new BookChangedEvent(book));

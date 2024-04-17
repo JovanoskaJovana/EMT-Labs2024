@@ -7,12 +7,12 @@ import mk.ukim.finki.lab1bookstorefinal.model.Country;
 public class AuthorDto {
     private String name;
     private String surname;
-    private Country country;
+    private Long country;
 
     public AuthorDto() {
     }
 
-    public AuthorDto(String name, String surname, Country country) {
+    public AuthorDto(String name, String surname, Long country) {
         this.name = name;
         this.surname = surname;
         this.country = country;
@@ -34,11 +34,11 @@ public class AuthorDto {
         this.surname = surname;
     }
 
-    public Country getCountry() {
+    public Long getCountry() {
         return country;
     }
 
-    public void setCountry(Country country) {
+    public void setCountry(Long country) {
         this.country = country;
     }
 }

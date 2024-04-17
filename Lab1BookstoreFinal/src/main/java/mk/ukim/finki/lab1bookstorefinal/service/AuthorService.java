@@ -13,7 +13,7 @@ public interface AuthorService {
     List<Author> findAll();
     Optional<Author> findById(Long id);
     Optional<Author> save(AuthorDto authorDto);
-    Author create(String name, String surname, Long countryId);
+//    Author create(String name, String surname, Long countryId);
     Optional<Author> edit(Long id, AuthorDto authorDto);
 
     void deleteById(Long id);

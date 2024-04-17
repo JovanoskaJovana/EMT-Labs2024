@@ -36,23 +36,16 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Optional<Author> save(AuthorDto authorDto) {
-        Country country = countryRepository.findById(authorDto.getCountry().getId()).orElseThrow(() -> new CountryNotFoundException(authorDto.getCountry().getId()));
+        Country country = countryRepository.findById(authorDto.getCountry()).orElseThrow(() -> new CountryNotFoundException(authorDto.getCountry()));
         Author author = new Author(authorDto.getName(), authorDto.getSurname(), country);
         authorRepository.save(author);
         return Optional.of(author);
     }
 
-    @Override
-    public Author create(String name, String surname, Long countryId) {
-        Country country = countryRepository.findById(countryId).orElseThrow(() -> new CountryNotFoundException(countryId));
-        Author author = new Author(name, surname, country);
-        authorRepository.save(author);
-        return author;
-    }
 
     @Override
     public Optional<Author> edit(Long id, AuthorDto authorDto) {
-        Country country = countryRepository.findById(authorDto.getCountry().getId()).orElseThrow(() -> new CountryNotFoundException(authorDto.getCountry().getId()));
+        Country country = countryRepository.findById(authorDto.getCountry()).orElseThrow(() -> new CountryNotFoundException(authorDto.getCountry()));
         Author author = authorRepository.findById(id).orElseThrow(() -> new AuthorNotFoundException(id));
 
         author.setName(authorDto.getName());
