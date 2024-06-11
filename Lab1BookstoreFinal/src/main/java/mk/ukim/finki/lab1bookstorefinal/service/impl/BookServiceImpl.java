@@ -85,4 +85,10 @@ public class BookServiceImpl implements BookService {
         }
         return false;
     }
+
+    @Override
+    public List<Book> searchBook(String query) {
+        return bookRepository.findByNameContainingIgnoreCase(query);
+    }
+
 }

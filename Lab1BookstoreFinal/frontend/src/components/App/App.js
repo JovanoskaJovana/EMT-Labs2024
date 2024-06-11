@@ -6,17 +6,17 @@ import BookStoreService from "../../repository/BookStoreRepository";
 import BookAdd from "../Books/BookAdd/bookAdd";
 import BookEdit from "../Books/BookEdit/bookEdit";
 import Header from "../Header/header";
-import CategoryList from "../Categories/categories";
 import Categories from "../Categories/categories";
+import bookStoreRepository from "../../repository/BookStoreRepository";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: [],
-      authors: [],
-      categories: [],
-      selectedBook: {}
+        books: [],
+        authors: [],
+        categories: [],
+        selectedBook: {},
     }
   }
 
@@ -35,6 +35,7 @@ class App extends Component {
                                                                         authors={this.state.authors}
                                                                         onEditBook={this.editBook} /> } />
                        <Route path="/books" element={<Books books={this.state.books}
+                                                            onRefreshBooks={this.loadBooks}
                                                             onDelete={this.deleteBook}
                                                             onEditBook={this.getBook}
                                                             onRentBook={this.rentBook}/>} />
@@ -44,6 +45,7 @@ class App extends Component {
                </div>
            </main>
        </Router>
+
     );
   }
 
@@ -63,6 +65,7 @@ class App extends Component {
         });
   }
 
+
     loadAuthors = () => {
         BookStoreService.fetchAuthors()
             .then((data) => {
@@ -80,6 +83,8 @@ class App extends Component {
               })
           });
     }
+
+
 
   addBook = (name, bookCategory, authorId, availableCopies) => {
       BookStoreService.addBook(name, bookCategory, authorId, availableCopies)

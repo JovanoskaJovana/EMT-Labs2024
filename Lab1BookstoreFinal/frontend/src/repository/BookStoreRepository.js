@@ -34,6 +34,10 @@ const BookStoreService = {
     },
     getBookById: (id) => {
         return axios.get(`/books/${id}`);
+    },
+    searchBook: (query) => {
+        return axios.get("books/search",
+            {params: {query}});
     }
 }
 

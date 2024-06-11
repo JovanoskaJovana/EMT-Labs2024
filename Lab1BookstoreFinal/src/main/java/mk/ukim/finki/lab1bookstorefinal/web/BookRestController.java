@@ -26,6 +26,7 @@ public class BookRestController {
         return bookService.findAll();
     }
 
+
     @GetMapping("/books/categories")
     public List<BookCategory> findAllCategories() {
         return Arrays.stream(BookCategory.values()).toList();
@@ -71,6 +72,12 @@ public class BookRestController {
         } else {
             return ResponseEntity.badRequest().build();
         }
+    }
+    //new
+    @GetMapping("/books/search")
+    public ResponseEntity<List<Book>> searchBook (@RequestParam String query) {
+        List<Book> books = bookService.searchBook(query);
+        return ResponseEntity.ok(books);
     }
 
 
